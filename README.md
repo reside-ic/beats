@@ -1,4 +1,11 @@
-## Instructions and configuration for getting beats set up
+## beats
+
+Scripts and instructions for installing [beats](https://www.elastic.co/products/beats) to ship logs to our log server.
+
+For instructions on the log server, see [its repository](https://github.com/reside-ic/logs).p
+
+
+### Instructions and configuration for getting beats set up
 
 Clone this repository somewhere
 
