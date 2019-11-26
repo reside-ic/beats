@@ -18,13 +18,16 @@ filebeat.inputs:
 # There is some setup work to accept things here apparently
 # https://www.elastic.co/guide/en/logstash/current/plugins-inputs-beats.html
 
-output.elasticsearch:
-  hosts: ["logs.dide.ic.ac.uk:9200"]
-  username: elastic
-  password: changeme
+# If using logstash, we would do it like:
 
 # output.logstash:
 #   hosts: ["logs.dide.ic.ac.uk:5044"]
+
+# But here we'll use elasticsearch:
+output.elasticsearch:
+  hosts: ["logs.dide.ic.ac.uk:9200"]
+  username: elastic
+  password: "${ES_PW}"
 
 setup.kibana:
   host: "logs.dide.ic.ac.uk:5601"
