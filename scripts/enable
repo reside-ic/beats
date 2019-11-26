@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -z $SUDO_USER ]; then
+    echo "Run this command with sudo"
+    exit 1
+fi
+
+mkdir -p /etc/filebeat
+cp docker/filebeat.yml /etc/filebeat
+filebeat test config
+update-rc.d filebeat defaults 95 10
+service filebeat start
