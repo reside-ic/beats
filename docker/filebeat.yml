@@ -15,13 +15,16 @@ filebeat.inputs:
 # port is disabled by default in the docker compose configuration,
 # though we'll probably update that soon anyway.
 
-# output.elasticsearch:
-#   hosts: ["logs.dide.ic.ac.uk:9200"]
-#   username: elastic
-#   password: changeme
+# There is some setup work to accept things here apparently
+# https://www.elastic.co/guide/en/logstash/current/plugins-inputs-beats.html
 
-output.logstash:
-  hosts: ["logs.dide.ic.ac.uk:5044"]
+output.elasticsearch:
+  hosts: ["logs.dide.ic.ac.uk:9200"]
+  username: elastic
+  password: changeme
+
+# output.logstash:
+#   hosts: ["logs.dide.ic.ac.uk:5044"]
 
 setup.kibana:
   host: "logs.dide.ic.ac.uk:5601"
