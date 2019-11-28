@@ -1,0 +1,38 @@
+# Reference:
+#
+# https://www.elastic.co/guide/en/beats/filebeat/master/filebeat-configuration.html
+# https://www.elastic.co/guide/en/beats/libbeat/7.4/config-file-format.html
+# https://www.elastic.co/guide/en/beats/filebeat/master/filebeat-input-container.html
+
+filebeat.inputs:
+  - type: container
+    enabled: true
+    paths:
+      - '/var/lib/docker/containers/*/*.log'
+
+# It is not clear if we should send directly to elasticsearch or go
+# via logstash, but the former seems simplest.  The logstash beats
+# port is disabled by default in the docker compose configuration,
+# though we'll probably update that soon anyway.
+
+# There is some setup work to accept things here apparently
+# https://www.elastic.co/guide/en/logstash/current/plugins-inputs-beats.html
+
+# If using logstash, we would do it like:
+
+# output.logstash:
+#   hosts: ["logs.dide.ic.ac.uk:5044"]
+
+# But here we'll use elasticsearch:
+output.elasticsearch:
+  hosts: ["logs.dide.ic.ac.uk:9200"]
+  username: elastic
+  password: "${ES_PW}"
+
+setup.kibana:
+  host: "logs.dide.ic.ac.uk:5601"
+
+# See:
+# https://www.elastic.co/guide/en/beats/filebeat/current/add-docker-metadata.html
+processors:
+- add_docker_metadata: ~
