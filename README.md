@@ -20,3 +20,7 @@ You only need to enable the relevant beat(s):
 
 1. Log into Vault
 1. `./beats`
+
+## Upgrade
+
+Modify `BEATS_VERSION` in `.env` and re-run `beats`
