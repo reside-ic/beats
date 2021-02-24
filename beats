@@ -10,4 +10,5 @@ set +a
 export VAULT_ADDR=https://vault.dide.ic.ac.uk:8200
 ELASTIC_PASSWORD="$(vault read -field=password /secret/logs/users/elastic)"
 export ELASTIC_PASSWORD
+docker-compose pull
 docker-compose up -d $BEATS_ENABLED
