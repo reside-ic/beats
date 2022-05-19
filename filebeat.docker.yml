@@ -8,10 +8,10 @@ filebeat.autodiscover:
       hints.enabled: true
 processors:
   - if:
-    equals:
+      equals:
         container.name: "hint_hint"
     then:
-      - decode_json_fields:
+    - decode_json_fields:
         fields: ["message"]
         process_array: false
         max_depth: 1
