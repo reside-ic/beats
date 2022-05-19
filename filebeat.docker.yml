@@ -15,7 +15,7 @@ processors:
         fields: ["message"]
         process_array: false
         max_depth: 1
-        target: "naomi"
+        target: ""
         overwrite_keys: false
         add_error_key: true
         
