@@ -7,3 +7,7 @@ journalbeat.inputs:
     seek: tail
     include_matches:
       - syslog.identifier=${SYSLOG_IDENTIFIER}
+processors:
+  - add_fields:
+      fields:
+        hostname: ${MACHINE_HOST}

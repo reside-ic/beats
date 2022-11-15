@@ -3,7 +3,8 @@ services:
   filebeat:
     command: filebeat -e -strict.perms=false
     environment:
-    - ELASTIC_PASSWORD 
+    - ELASTIC_PASSWORD
+    - MACHINE_HOST
     image: docker.elastic.co/beats/filebeat-oss:$BEATS_VERSION
     restart: unless-stopped
     user: root
@@ -16,6 +17,7 @@ services:
     environment:
     - ELASTIC_PASSWORD
     - SYSLOG_IDENTIFIER
+    - MACHINE_HOST
     image: docker.elastic.co/beats/journalbeat-oss:$BEATS_VERSION
     restart: unless-stopped
     user: root
@@ -23,4 +25,3 @@ services:
     - ./journalbeat.docker.yml:/usr/share/journalbeat/journalbeat.yml:ro
     - /run/log/journal:/run/log/journal:ro
     - /etc/machine-id:/etc/machine-id:ro
-
