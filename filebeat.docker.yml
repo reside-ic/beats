@@ -20,4 +20,4 @@ processors:
         add_error_key: true
   - add_fields:
       fields:
-        hostname: ${HOSTNAME}
+        hostname: ${MACHINE_HOST}
