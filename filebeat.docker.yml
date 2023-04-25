@@ -6,12 +6,6 @@ filebeat.autodiscover:
   providers:
     - type: docker
       hints.enabled: true
-      appenders:
-        - type: config
-          condition.equals:
-            container.image.name: reside/proxy-nginx:master
-          config:
-            pipeline: nginx
 processors:
   - if:
       equals:
