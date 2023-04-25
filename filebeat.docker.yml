@@ -24,6 +24,14 @@ processors:
         target: ""
         overwrite_keys: false
         add_error_key: true
+  - if:
+      equals:
+        container.image.name: reside/proxy-nginx:master
+    then:
+    - dissect:
+        tokenizer: "%{IPORHOST:source.ip} %{USER:user.id} %{USER:user.name} \\[%{HTTPDATE:@timestamp}\\] \"%{WORD:http.request.method} %{DATA:url.original} HTTP/%{NUMBER:http.version}\" %{NUMBER:http.response.status_code:int} (?:-|%{NUMBER:http.response.body.bytes:int}) %{QS:http.request.referrer} %{QS:user_agent}"
+        field: "message"
+        target_prefix: "nginx"
   - add_fields:
       fields:
         hostname: ${MACHINE_HOST}
