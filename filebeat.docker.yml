@@ -23,7 +23,7 @@ processors:
         container.image.name: reside/proxy-nginx:master
     then:
     - dissect:
-        tokenizer: "%{IPORHOST:source.ip} %{USER:user.id} %{USER:user.name} \\[%{HTTPDATE:@timestamp}\\] \"%{WORD:http.request.method} %{DATA:url.original} HTTP/%{NUMBER:http.version}\" %{NUMBER:http.response.status_code:int} (?:-|%{NUMBER:http.response.body.bytes:int}) %{QS:http.request.referrer} %{QS:user_agent}"
+        tokenizer: '%{clientip|ip} %{user} %{username} [%{timestamp} %{+timestamp}] "%{method} %{request} HTTP/%{httpversion}" %{status} %{bytes} "%{referrer}" "%{useragent}"'
         field: "message"
         target_prefix: "nginx"
   - add_fields:
