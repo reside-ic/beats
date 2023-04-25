@@ -2,6 +2,11 @@ output.elasticsearch:
   hosts: logs.dide.ic.ac.uk:9200
   username: elastic
   password: ${ELASTIC_PASSWORD}
+  if:
+    equals:
+      container.name: "mint-dev_proxy_1"
+  then:
+    pipeline: nginx
 filebeat.autodiscover:
   providers:
     - type: docker
