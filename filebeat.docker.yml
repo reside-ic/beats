@@ -2,6 +2,7 @@ output.elasticsearch:
   hosts: logs.dide.ic.ac.uk:9200
   username: elastic
   password: ${ELASTIC_PASSWORD}
+  pipeline: "nginx-conditional"
 filebeat.autodiscover:
   providers:
     - type: docker
@@ -11,21 +12,13 @@ processors:
       equals:
         container.name: "hint_hint"
     then:
-    - decode_json_fields:
-        fields: ["message"]
-        process_array: false
-        max_depth: 1
-        target: ""
-        overwrite_keys: false
-        add_error_key: true
-  - if:
-      equals:
-        container.image.name: reside/proxy-nginx:master
-    then:
-    - dissect:
-        tokenizer: '%{clientip|ip} %{user} %{username} [%{timestamp} %{+timestamp}] "%{method} %{request} HTTP/%{httpversion}" %{status} %{bytes} "%{referrer}" "%{useragent}"'
-        field: "message"
-        target_prefix: "nginx"
+      - decode_json_fields:
+          fields: ["message"]
+          process_array: false
+          max_depth: 1
+          target: ""
+          overwrite_keys: false
+          add_error_key: true
   - add_fields:
       fields:
         hostname: ${MACHINE_HOST}
