@@ -2,6 +2,7 @@ output.elasticsearch:
   hosts: logs.dide.ic.ac.uk:9200
   username: elastic
   password: ${ELASTIC_PASSWORD}
+  pipeline: "nginx-conditional"
 filebeat.autodiscover:
   providers:
     - type: docker
